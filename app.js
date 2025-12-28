@@ -1,120 +1,145 @@
 'use strict';
 
-// sample data
-const nums = [1, 2, 3, 4];
-const instructors = ['Beryl', 'Hunter', 'Joe', 'Jurgen', 'Ben', 'David'];
+/* =========================
+   DATA SETS
+   ========================= */
 
-const cars = [
-  { color: 'red', make: 'BMW', year: 2001 },
-  { color: 'white', make: 'Toyota', year: 2013 },
-  { color: 'blue', make: 'Ford', year: 2014 },
-  { color: 'white', make: 'Tesla', year: 2016 }
+// Inventors data
+const inventors = [
+  { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+  { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+  { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+  { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+  { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+  { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+  { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+  { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+  { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+  { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+  { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+  { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
 ];
 
-const thingsInMyRoom = ['bed', 'lamp', 'table', 'random elephant', 'three tacos'];
-
-const allElephants = [
-  'random elephant',
-  'random elephant',
-  'random elephant',
-  'random elephant'
+// People list (Last, First)
+const people = [
+  'Beck, Glenn',
+  'Becker, Carl',
+  'Beckett, Samuel',
+  'Beddoes, Mick',
+  'Beecher, Henry',
+  'Beethoven, Ludwig',
+  'Begin, Menachem',
+  'Belloc, Hilaire',
+  'Bellow, Saul',
+  'Benchley, Robert',
+  'Benenson, Peter',
+  'Ben-Gurion, David',
+  'Benjamin, Walter',
+  'Benn, Tony',
+  'Bennington, Chester',
+  'Benson, Leana',
+  'Bent, Silas',
+  'Bentsen, Lloyd',
+  'Berger, Ric',
+  'Bergman, Ingmar',
+  'Berio, Luciano',
+  'Berle, Milton',
+  'Berlin, Irving',
+  'Berne, Eric',
+  'Bernhard, Sandra',
+  'Berra, Yogi',
+  'Berry, Halle',
+  'Berry, Wendell',
+  'Bethea, Erin',
+  'Bevan, Aneurin',
+  'Bevel, Ken',
+  'Biden, Joseph',
+  'Bierce, Ambrose',
+  'Biko, Steve',
+  'Billings, Josh',
+  'Biondo, Frank',
+  'Birrell, Augustine',
+  'Black, Elk',
+  'Blair, Robert',
+  'Blake, William'
 ];
 
-const votes = ['Yes', 'No', 'Yes', 'Yes', 'No'];
-const numsForReduce = [25, 5, 100, 10];
+// Travel methods data
+const travelMethods = [
+  'car',
+  'car',
+  'truck',
+  'bike',
+  'walk',
+  'car',
+  'van',
+  'bike',
+  'walk',
+  'car'
+];
+
+/* =========================
+   HELPER FUNCTION
+   ========================= */
 
 function display(id, value) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (typeof value === 'string') {
-    el.textContent = value;
-  } else {
-    el.textContent = JSON.stringify(value, null, 2);
-  }
+  el.textContent = JSON.stringify(value, null, 2);
 }
 
-// map
-const awesomeInstructors = instructors.map((instructor) => {
-  return `${instructor} is awesome`;
-});
-
-// filter
-const people = ['jerks', 'nice people', 'jerks', 'nice people', 'nice people'];
-const notJerks = people.filter((person) => person !== 'jerks');
-
-// find
-const firstWhiteCar = cars.find((car) => {
-  return car.color === 'white';
-});
-
-// findIndex
-const firstWhiteCarIdx = cars.findIndex((car) => {
-  return car.color === 'white';
-});
-
-// some
-const hasFord = cars.some((car) => {
-  return car.make === 'Ford';
-});
-
-const isARandomElephantInMyRoom = thingsInMyRoom.some((thing) => {
-  return thing === 'random elephant';
-});
-
-// every
-const everyCarIsBlue = cars.every((car) => {
-  return car.color === 'blue';
-});
-
-const isEverythingInMyRoomARandomElephant = allElephants.every((thing) => {
-  return thing === 'random elephant';
-});
-
-// reduce
-const sum = numsForReduce.reduce((acc, num) => {
-  return acc + num;
-}, 0);
-
-const tally = votes.reduce((acc, vote) => {
-  if (acc[vote]) {
-    acc[vote] = acc[vote] + 1;
-  } else {
-    acc[vote] = 1;
-  }
-  return acc;
-}, {});
+/* =========================
+   ARRAY ITERATOR EXERCISES
+   ========================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-  display('map-output', awesomeInstructors);
 
-  display('filter-output', {
-    source: people,
-    result: notJerks
-  });
+  // Exercise 1: Inventors born in the 1500s
+  const ex1 = inventors.filter(inv => inv.year >= 1500 && inv.year < 1600);
+  display('ex1', ex1);
 
-  display('find-output', {
-    firstWhiteCar,
-    missingCar: cars.find((car) => car.color === 'black') || null
-  });
+  // Exercise 2: Array of inventor full names
+  const ex2 = inventors.map(inv => `${inv.first} ${inv.last}`);
+  display('ex2', ex2);
 
-  display('findindex-output', {
-    firstWhiteCarIdx,
-    missingCarIdx: cars.findIndex((car) => car.color === 'black')
-  });
+  // Exercise 3: Sort inventors by birth year (oldest → youngest)
+  const ex3 = [...inventors].sort((a, b) => a.year - b.year);
+  display('ex3', ex3);
 
-  display('some-output', {
-    hasFord,
-    isARandomElephantInMyRoom
-  });
+  // Exercise 4: Total years lived by all inventors
+  const ex4 = inventors.reduce((total, inv) => {
+    return total + (inv.passed - inv.year);
+  }, 0);
+  display('ex4', ex4);
 
-  display('every-output', {
-    everyCarIsBlue,
-    isEverythingInMyRoomARandomElephant
+  // Exercise 5: Sort inventors by years lived (longest first)
+  const ex5 = [...inventors].sort((a, b) => {
+    const aYears = a.passed - a.year;
+    const bYears = b.passed - b.year;
+    return bYears - aYears;
   });
+  display('ex5', ex5);
 
-  display('reduce-output', {
-    numsForReduce,
-    sum,
-    tally
+  // Exercise 6: People with "de" in their last name
+  const ex6 = people.filter(name => name.toLowerCase().includes('de'));
+  display('ex6', ex6);
+
+  // Exercise 7: Sort people alphabetically by last name
+  const ex7 = [...people].sort((a, b) => {
+    const [aLast] = a.split(', ');
+    const [bLast] = b.split(', ');
+    return aLast.localeCompare(bLast);
   });
+  display('ex7', ex7);
+
+  // Exercise 8: Count instances of each travel method
+  const ex8 = travelMethods.reduce((acc, method) => {
+    acc[method] = (acc[method] || 0) + 1;
+    return acc;
+  }, {});
+  display('ex8', ex8);
+
+  // Exercise 9: Check if any inventor lived 90+ years
+  const ex9 = inventors.some(inv => (inv.passed - inv.year) >= 90);
+  display('ex9', ex9);
 });
